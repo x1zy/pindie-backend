@@ -5,10 +5,6 @@ const hashPassword = async (req, res, next) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
-
-    log.blue(`user password: ${req.body.password}`);
-    log.green(`created hash for bd: ${hash}`);
-
     req.body.password = hash;
     next();
   } catch (error) {
@@ -23,10 +19,8 @@ const findAllUsers = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-  console.log("POST /api/users");
   try {
     req.user = await users.create(req.body);
-    log.yellow(`created user in bd: ${req.user}`);
     next();
   } catch (error) {
     res.status(400).send("Ошибка при создании пользователя");

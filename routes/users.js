@@ -34,6 +34,10 @@ usersRouter.post(
   sendUserCreated
 );
 
+usersRouter.get("/users/:id", findUserById, sendUserById);
+
+usersRouter.get("/me", checkAuth, sendMe);
+
 usersRouter.put(
   "/users/:id",
   checkEmptyNameAndEmail,
@@ -43,9 +47,5 @@ usersRouter.put(
 );
 
 usersRouter.delete("/users/:id", checkAuth, deleteUser, sendUserDeleted);
-
-usersRouter.get("/users/:id", findUserById, sendUserById);
-
-usersRouter.get("/me", checkAuth, sendMe);
 
 module.exports = usersRouter;
