@@ -8,6 +8,7 @@ const hashPassword = async (req, res, next) => {
     req.body.password = hash;
     next();
   } catch (error) {
+    console.log(error);
     res.status(400).send({ message: "Ошибка хеширования пароля" });
   }
 };
@@ -28,9 +29,9 @@ const createUser = async (req, res, next) => {
 };
 
 const findUserById = async (req, res, next) => {
-  console.log("GET /users/:id");
+  console.log("GET /api/users/:id");
   try {
-    req.user = await users.findById(req.params.id);
+    (req.user = await users.findById(req.params.id)), { password: 0 };
     next();
   } catch (error) {
     res.setHeader("Content-Type", "application/json");
